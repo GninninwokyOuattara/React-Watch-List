@@ -23,6 +23,8 @@ const login: RequestHandler = async (req, res, next) => {
             } else {
                 res.status(500).json({ message: "Invalid Password" });
             }
+        } else {
+            res.status(500).json({ message: "No account found" });
         }
     } catch (error) {
         next(new Error(error.message));
