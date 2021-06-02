@@ -1,6 +1,10 @@
 import express, { Express } from "express";
 import cors from "cors";
 
+// Database connection
+import "./db/mongoose";
+
+// Routers
 import userRouter from "./routes/users";
 
 const app: Express = express();
