@@ -11,7 +11,11 @@ const login: RequestHandler = async (req, res, next) => {
         if (user) {
             let isValidPassword = await bcrypt.compare(password, user.password);
             if (isValidPassword) {
-                let token = jwt.sign({ ...user }, process.env.SECRET as string);
+                let token = jwt.sign(
+                    { ...user },
+                    process.env.SECRET as string,
+                    { expiresIn: "1d" }
+                );
                 res.json({
                     message: "Connected",
                     user: {

@@ -31,7 +31,9 @@ const signUp: RequestHandler = async (req, res, next) => {
         next(error);
     }
     // Token generation
-    let token = jwt.sign({ ...user }, process.env.SECRET as string);
+    let token = jwt.sign({ ...user }, process.env.SECRET as string, {
+        expiresIn: "1d",
+    });
 
     return res.json({ user, token });
 };
