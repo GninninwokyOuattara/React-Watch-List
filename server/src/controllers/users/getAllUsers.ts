@@ -5,6 +5,7 @@ import Movie from "../../db/schemas/MovieSchema";
 import User from "../../db/schemas/UserSchema";
 
 interface userData {
+    _id: string;
     name: string;
     email: string;
     password?: string;
@@ -22,6 +23,7 @@ const getAllUsers: RequestHandler = async (req, res) => {
                 users = [
                     ...users,
                     {
+                        _id: user._id,
                         name: user.name,
                         email: user.email,
                         watchlist: user.watchlist,
