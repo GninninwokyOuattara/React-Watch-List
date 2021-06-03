@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import { RequestHandler } from "express";
 import mongoose from "mongoose";
 
