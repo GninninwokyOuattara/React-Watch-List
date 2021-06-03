@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+// import Movie from "./MovieSchema";
+
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -19,6 +21,12 @@ const UserSchema = new Schema({
         default:
             "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
     },
+    watchlist: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Movie",
+        },
+    ],
 });
 
 const User = mongoose.model("User", UserSchema);
