@@ -31,11 +31,22 @@ const signUp: RequestHandler = async (req, res, next) => {
         next(error);
     }
     // Token generation
-    let token = jwt.sign({ ...user }, process.env.SECRET as string, {
-        expiresIn: "1d",
-    });
+    let token = jwt.sign(
+        { _id: user._id, email: user.email, name: user.name },
+        process.env.SECRET as string,
+        {
+            expiresIn: "1d",
+        }
+    );
 
-    return res.json({ user, token });
+    return res.json({
+        user: {
+            id: user._id,
+            email: user.email,
+            token,
+        },
+        message: "Connected",
+    });
 };
 
 export default signUp;
