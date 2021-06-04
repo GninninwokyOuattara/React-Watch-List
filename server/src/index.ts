@@ -6,7 +6,8 @@ import path from "path";
 import "./db/mongoose";
 
 // Routers
-import userRouter from "./routes/users";
+import usersRouter from "./routes/users";
+import MoviesRouter from "./routes/movies";
 
 const app: Express = express();
 
@@ -16,7 +17,8 @@ app.use(cors());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-app.use("/api/users/", userRouter);
+app.use("/api/users/", usersRouter);
+app.use("/api/movies/", MoviesRouter);
 
 // Error catcher middleware
 app.use(
@@ -30,8 +32,8 @@ app.use(
             return next(error);
         }
 
-        res.status(error.code || 500);
-        res.json({ message: "Unexpected Error" });
+        res.status(error.status || 500);
+        res.json({ message: error.message || "Unexpected Error" });
     }
 );
 
