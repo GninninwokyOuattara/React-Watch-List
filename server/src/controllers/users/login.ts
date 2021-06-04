@@ -12,7 +12,7 @@ const login: RequestHandler = async (req, res, next) => {
             let isValidPassword = await bcrypt.compare(password, user.password);
             if (isValidPassword) {
                 let token = jwt.sign(
-                    { ...user },
+                    { _id: user._id, email: user.email, name: user.name },
                     process.env.SECRET as string,
                     { expiresIn: "1d" }
                 );
@@ -25,10 +25,10 @@ const login: RequestHandler = async (req, res, next) => {
                     },
                 });
             } else {
-                res.status(500).json({ message: "Invalid Password" });
+                res.status(401).json({ message: "Invalid Password" });
             }
         } else {
-            res.status(500).json({ message: "No account found" });
+            res.status(404).json({ message: "No account found" });
         }
     } catch (error) {
         next(new Error(error.message));
