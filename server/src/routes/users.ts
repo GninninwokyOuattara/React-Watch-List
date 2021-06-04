@@ -1,4 +1,7 @@
 import Router from "express";
+
+import authentification from "../controllers/middleware/authentification";
+
 import signUp from "../controllers/users/signUp";
 import login from "../controllers/users/login";
 import addToWatchlist from "../controllers/users/add";
@@ -8,20 +11,22 @@ import removeFromWatchlistById from "../controllers/users/removeFromWatchlistByI
 
 const router = Router();
 
-// Fetch all users
-router.get("/", getAllUsers);
-
-// Fetch user data including his wathclist using the user id
-router.get("/:userid", getUserById);
-
 // Signup user
 router.post("/signup", signUp);
 
 // User login
 router.post("/login", login);
 
+// Fetch all users
+router.get("/", getAllUsers);
+
+// Fetch user data including his wathclist using the user id
+router.get("/:userid", getUserById);
+
+router.use(authentification);
+
 // User adding a movie to his watchlist
-router.post("/:userid/add", addToWatchlist);
+router.post("/add/:userid", addToWatchlist);
 
 // User removing a movie from his wathclist using the id
 router.delete("/:userid/:movieid", removeFromWatchlistById);
