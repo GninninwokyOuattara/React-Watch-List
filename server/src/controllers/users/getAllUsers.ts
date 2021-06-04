@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import mongoose from "mongoose";
+import ErrorWithStatusCode from "./../../utils/customError";
 
 import Movie from "../../db/schemas/MovieSchema";
 import User from "../../db/schemas/UserSchema";
@@ -12,12 +13,12 @@ interface userData {
     watchlist: string[];
 }
 
-const getAllUsers: RequestHandler = async (req, res) => {
+const getAllUsers: RequestHandler = async (req, res, next) => {
     let users: userData[] = [];
     try {
         let allUsers: userData[] = await User.find({});
         if (!allUsers) {
-            throw new Error("No users found");
+            throw new ErrorWithStatusCode("Users Not Found", 404);
         } else {
             allUsers.forEach((user) => {
                 users = [
@@ -32,10 +33,10 @@ const getAllUsers: RequestHandler = async (req, res) => {
             });
         }
     } catch (error) {
-        return res.json({ message: error.message });
+        return next(error);
     }
 
-    return res.json({ users });
+    return res.json(users);
 };
 
 export default getAllUsers;

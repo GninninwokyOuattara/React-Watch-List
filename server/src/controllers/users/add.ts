@@ -4,9 +4,7 @@ import mongoose from "mongoose";
 import Movie from "../../db/schemas/MovieSchema";
 import User from "../../db/schemas/UserSchema";
 
-const addToWatchlist: RequestHandler = async (req, res) => {
-    console.log("userid :", req.params.userid);
-    console.log(req.body);
+const addToWatchlist: RequestHandler = async (req, res, next) => {
     let user;
 
     // Looking for user
@@ -36,11 +34,7 @@ const addToWatchlist: RequestHandler = async (req, res) => {
             }
         }
     } catch (error) {
-        // throw new Error(error.message);
-        console.log(error.message);
-        return res
-            .status(500)
-            .json({ message: "Coud not complete operation, please try again" });
+        return next(error);
     }
 
     // Addind movie to user wathclist and user to movie
@@ -54,11 +48,7 @@ const addToWatchlist: RequestHandler = async (req, res) => {
         user = await user.save({ session });
         session.commitTransaction();
     } catch (error) {
-        // throw new Error(error.message);
-        console.log(error.message);
-        return res
-            .status(500)
-            .json({ message: "Coud not complete operation, please try again" });
+        return next(error);
     }
     return res.json({
         message: "Movie added successfully to your watchlist",

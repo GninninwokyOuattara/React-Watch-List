@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import mongoose from "mongoose";
+import ErrorWithStatusCode from "./../../utils/customError";
 
 import Movie from "../../db/schemas/MovieSchema";
 import User from "../../db/schemas/UserSchema";
@@ -12,14 +13,14 @@ interface userData {
     watchlist: string[];
 }
 
-const getUserById: RequestHandler = async (req, res) => {
+const getUserById: RequestHandler = async (req, res, next) => {
     let user: userData;
     try {
         user = await User.findOne({ _id: req.params.userid }).populate(
             "watchlist"
         );
         if (!user) {
-            throw new Error("No user found");
+            throw new ErrorWithStatusCode("No user found with this id", 404);
         } else {
             user = {
                 _id: user._id,
@@ -29,7 +30,7 @@ const getUserById: RequestHandler = async (req, res) => {
             };
         }
     } catch (error) {
-        return res.json({ message: error.message });
+        return next(error);
     }
 
     return res.json(user);
