@@ -8,7 +8,7 @@ interface userData {
     save(arg0: {
         session: import("mongodb").ClientSession;
     }): userData | PromiseLike<userData | undefined> | undefined;
-    watchlist: string[];
+    watchlist: any;
     _id: string;
     name: string;
     email: string;
