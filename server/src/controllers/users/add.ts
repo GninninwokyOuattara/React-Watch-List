@@ -4,18 +4,27 @@ import mongoose from "mongoose";
 import Movie from "../../db/schemas/MovieSchema";
 import User from "../../db/schemas/UserSchema";
 
-const addToWatchlist: RequestHandler = async (req, res, next) => {
-    let user;
+import { RequestWithUser } from "../middleware/authentification";
+
+const addToWatchlist: RequestHandler = async (
+    req: RequestWithUser,
+    res,
+    next
+) => {
+    let { user } = req;
 
     // Looking for user
-    try {
-        user = await User.findOne({ _id: req.params.userid });
-        if (!user) {
-            return res.status(404).json({ message: "No user found" });
-        }
-    } catch (error) {
-        return res.status(404).json({ message: error.message });
-    }
+
+    // With auth middle user, should already be found by now.
+
+    // try {
+    //     user = await User.findOne({ _id: req.params.userid });
+    //     if (!user) {
+    //         return res.status(404).json({ message: "No user found" });
+    //     }
+    // } catch (error) {
+    //     return res.status(404).json({ message: error.message });
+    // }
 
     // Look movie up, check if it already is inside the database
     let movie;
@@ -26,7 +35,7 @@ const addToWatchlist: RequestHandler = async (req, res, next) => {
             // Creating the movie if not already existing
             movie = new Movie({ ...req.body });
         } else {
-            let userWatchlist: Array<string> = user.watchlist;
+            let userWatchlist: Array<string> = user!.watchlist;
 
             // In case where the movie is already in user watchlist
             if (userWatchlist.includes(movie._id)) {
@@ -41,11 +50,11 @@ const addToWatchlist: RequestHandler = async (req, res, next) => {
     try {
         const session = await mongoose.startSession();
         session.startTransaction();
-        movie.users.push(user._id);
+        movie.users.push(user!._id);
         movie = await movie.save({ session: session });
         console.log(movie);
-        user.watchlist.push(movie._id);
-        user = await user.save({ session });
+        req.user!.watchlist.push(movie._id);
+        user = await user!.save({ session });
         session.commitTransaction();
     } catch (error) {
         return next(error);
