@@ -10,7 +10,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/SignIn";
+import RegisterPage from "./pages/SignUp";
 import MainNavigation from "./components/navigation/MainNavigation";
 import { Auth } from "./context/AuthContext";
 
