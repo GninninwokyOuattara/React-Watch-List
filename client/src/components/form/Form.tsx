@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
 
+import { Auth } from "../../context/AuthContext";
+
 const Form = () => {
+    const auth = useContext(Auth);
     const [formData, setFormData] = useState({});
 
     const setForm = (id: string, value: string) => {
@@ -12,9 +15,26 @@ const Form = () => {
         });
     };
 
-    const submitHandler: React.FormEventHandler<HTMLFormElement> = (event) => {
+    const submitHandler: React.FormEventHandler<HTMLFormElement> = async (
+        event
+    ) => {
         event.preventDefault();
-        console.log(formData);
+        const response = await fetch(
+            `${process.env.REACT_APP_SERVER_DEV}/users/login`,
+            {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        const { user } = await response.json();
+        console.log(user);
+        if (user) {
+            auth?.logMeIn(user);
+        }
     };
 
     return (
