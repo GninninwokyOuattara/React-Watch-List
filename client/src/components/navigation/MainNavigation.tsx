@@ -5,7 +5,7 @@ import Burger from "./Burger";
 
 const MainNavigation = () => {
     return (
-        <div className="w-screen h-14 bg-gray-600 flex justify-between items-center px-8 py-2">
+        <div className="w-screen h-14 bg-gray-600 flex justify-between items-center px-8 py-2 mb-1">
             <Burger />
             <div className="logo text-white">WATCHLIST</div>
             <ul className="hidden md:flex list-none flex-row">
