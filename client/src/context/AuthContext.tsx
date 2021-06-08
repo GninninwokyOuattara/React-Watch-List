@@ -4,6 +4,7 @@ interface AuthContextData {
     isLoggedIn: boolean;
     logMeIn: (data: userData) => void;
     logMeOut: () => void;
+    userData: userData | undefined;
 }
 export const Auth = createContext<null | AuthContextData>(null);
 
@@ -20,7 +21,7 @@ interface userData {
 const AuthProvider: React.FC<props> = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userToken, setUserToken] = useState("");
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState<userData>();
 
     const logMeIn = useCallback((data: userData) => {
         setUserToken(data.token);
@@ -36,7 +37,7 @@ const AuthProvider: React.FC<props> = ({ children }) => {
     }, []);
 
     return (
-        <Auth.Provider value={{ isLoggedIn, logMeIn, logMeOut }}>
+        <Auth.Provider value={{ isLoggedIn, logMeIn, logMeOut, userData }}>
             {children}
         </Auth.Provider>
     );
