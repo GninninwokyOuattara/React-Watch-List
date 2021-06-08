@@ -9,50 +9,10 @@ import {
 import logo from "./logo.svg";
 import "./App.css";
 
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/SignUp";
-import MainNavigation from "./components/navigation/MainNavigation";
-import { Auth } from "./context/AuthContext";
-import MyWatchList from "./pages/MyWatchList";
+
 
 const App = () => {
-    const auth = useContext(Auth);
-
-    let router;
-    if (auth?.isLoggedIn) {
-        router = (
-            <Switch>
-                <Route path="/" exact>
-                    <h1>Index Page</h1>
-                </Route>
-                <Route path="/me" exact>
-                    <MyWatchList />
-                </Route>
-                <Redirect to="/" />
-            </Switch>
-        );
-    } else {
-        router = (
-            <Switch>
-                <Route path="/" exact>
-                    <h1>Index Page</h1>
-                </Route>
-                <Route path="/login" exact>
-                    <LoginPage />
-                </Route>
-                <Route path="/register" exact>
-                    <RegisterPage />
-                </Route>
-            </Switch>
-        );
-    }
-
-    return (
-        <Router>
-            <MainNavigation />
-            <main>{router}</main>
-        </Router>
-    );
+    return <h1>Hello World</h1>
 };
 
 export default App;
