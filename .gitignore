@@ -106,3 +106,5 @@ dist
 # Files
 
 server/src/images/*
+server/nodemon.json
+client/.env.development
