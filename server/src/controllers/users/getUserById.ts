@@ -9,6 +9,7 @@ interface userData {
     _id: string;
     name: string;
     email: string;
+    image: string;
     password?: string;
     watchlist: string[];
 }
@@ -26,6 +27,7 @@ const getUserById: RequestHandler = async (req, res, next) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                image: user.image,
                 watchlist: user.watchlist,
             };
         }

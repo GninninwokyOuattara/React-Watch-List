@@ -21,6 +21,7 @@ const login: RequestHandler = async (req, res, next) => {
                     user: {
                         id: user._id,
                         email: user.email,
+                        image: user.image,
                         token,
                     },
                 });
