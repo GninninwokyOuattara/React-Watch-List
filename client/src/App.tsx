@@ -13,6 +13,7 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/SignUp";
 import MainNavigation from "./components/navigation/MainNavigation";
 import { Auth } from "./context/AuthContext";
+import MyWatchList from "./pages/MyWatchList";
 
 const App = () => {
     const auth = useContext(Auth);
@@ -23,6 +24,9 @@ const App = () => {
             <Switch>
                 <Route path="/" exact>
                     <h1>Index Page</h1>
+                </Route>
+                <Route path="/me" exact>
+                    <MyWatchList />
                 </Route>
                 <Redirect to="/" />
             </Switch>
