@@ -11,24 +11,21 @@ import "./App.css";
 import Layout from "./shared/components/layout/Layout";
 import MainPage from "./pages/MainPage";
 import Test from "./shared/components/layout/Test";
+import Home from "./pages/Home";
 
 const App = () => {
     return (
         <Router>
-            <Layout>
-                {/* <main className="content"> */}
-                <Switch>
-                    <Route path="/" exact>
-                        <MainPage />
-                    </Route>
-                    <Route path="/test" exact>
-                        <Test />
-                    </Route>
+            <Switch>
+                <Route path="/" exact>
+                    <Home />
+                </Route>
+                <Route path="/test" exact>
+                    <Test />
+                </Route>
 
-                    <Redirect to="/auth" />
-                </Switch>
-                {/* </main> */}
-            </Layout>
+                <Redirect to="/auth" />
+            </Switch>
         </Router>
     );
 };
