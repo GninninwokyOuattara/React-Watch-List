@@ -8,11 +8,29 @@ import {
 
 import logo from "./logo.svg";
 import "./App.css";
-
-
+import Layout from "./shared/components/layout/Layout";
+import MainPage from "./pages/MainPage";
+import Test from "./shared/components/layout/Test";
 
 const App = () => {
-    return <h1>Hello World</h1>
+    return (
+        <Router>
+            <Layout>
+                {/* <main className="content"> */}
+                <Switch>
+                    <Route path="/" exact>
+                        <MainPage />
+                    </Route>
+                    <Route path="/test" exact>
+                        <Test />
+                    </Route>
+
+                    <Redirect to="/auth" />
+                </Switch>
+                {/* </main> */}
+            </Layout>
+        </Router>
+    );
 };
 
 export default App;
