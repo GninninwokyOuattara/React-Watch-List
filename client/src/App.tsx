@@ -13,7 +13,11 @@ import MainPage from "./pages/MainPage";
 import Test from "./shared/components/layout/Test";
 import Home from "./pages/Home";
 
+import { authContext, authType } from "./shared/context/authContext";
+
 const App = () => {
+    const { isLoggedIn, userData } = useContext(authContext) as authType;
+
     return (
         <Router>
             <Switch>
