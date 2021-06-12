@@ -37,12 +37,6 @@ const NavigationBar = () => {
                         src={userData?.image}
                         alt=""
                     />
-                    {/* <button
-                        className="w-14 h-14 border border-gray-400 rounded-full object-fill"
-                        style={{
-                            backgroundImage: `url(${"https://lh3.googleusercontent.com/a-/AOh14Gh-4g9AVCtFdCupyYsLJE0zo2ecLIfyyRm8YVmfJg=k-s32"})`,
-                        }}
-                    ></button> */}
                 </div>
             )}
         </header>
