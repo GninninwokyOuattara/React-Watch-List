@@ -5,6 +5,8 @@ interface props {
 }
 
 export interface userData {
+    name: string;
+    image: string;
     email: string;
     id: string;
     token: string;
