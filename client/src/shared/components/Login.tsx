@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { authContext, userData, authType } from "../context/authContext";
 
 let server_url = process.env.REACT_APP_SERVER_DEV as string;
 
@@ -6,6 +7,7 @@ const LoginForm = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const [formData, setFormData] = useState({});
+    const auth = useContext(authContext);
 
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (
         event
@@ -29,7 +31,9 @@ const LoginForm = () => {
             },
         });
         if (res.ok) {
-            res = await res.json();
+            let response: { message: string; user: userData } =
+                await res.json();
+            auth?.logHimIn(response.user);
         }
     };
 
