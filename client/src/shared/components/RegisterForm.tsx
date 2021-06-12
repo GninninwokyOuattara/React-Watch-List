@@ -1,13 +1,11 @@
 import React, { useRef, useState, useContext, useReducer } from "react";
 import { authContext, userData, authType } from "../context/authContext";
 import formReducer from "../reducer/formReducer";
+import useRequest from "../components/hooks/useRequest";
 
 let server_url = process.env.REACT_APP_SERVER_DEV as string;
 
 const RegisterForm = () => {
-    // const emailRef = useRef(null);
-    // const passwordRef = useRef(null);
-    // const [formData, setFormData] = useState({});
     const [formState, dispatch] = useReducer(formReducer, {
         name: "",
         email: "",
@@ -15,13 +13,11 @@ const RegisterForm = () => {
     });
     const auth = useContext(authContext);
 
+    const { error, sendRequest } = useRequest();
+
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (
         event
     ) => {
-        // let value = event.target.value;
-        // setFormData((prev) => {
-        //     return { ...prev, [event.target.id]: value };
-        // });
         dispatch({
             type: "INPUT_CHANGE",
             id: event.target.id,
@@ -33,17 +29,13 @@ const RegisterForm = () => {
         event
     ) => {
         event.preventDefault();
-        console.log(formState.name);
-        let res = await fetch(`${server_url}/users/login`, {
-            method: "POST",
-            body: JSON.stringify(formState),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        if (res.ok) {
-            let response: { message: string; user: userData } =
-                await res.json();
+
+        let response = await sendRequest(
+            `${server_url}/users/signup`,
+            "POST",
+            JSON.stringify(formState)
+        );
+        if (response) {
             auth?.logHimIn(response.user);
         }
     };
@@ -55,12 +47,12 @@ const RegisterForm = () => {
             onSubmit={submitHandler}
         >
             <h1 className="w-full text-center">Login and start Binging </h1>
+            <p className="text-red-500 text-center">{error}</p>
             <input
                 id="name"
                 type="text"
                 className="w-full  px-3 h-10 border-b my-2 rounded-md appearance-none outline-none"
                 placeholder="Name"
-                // ref={emailRef}
                 onChange={changeHandler}
             />
             <input
@@ -68,7 +60,6 @@ const RegisterForm = () => {
                 type="text"
                 className="w-full  px-3 h-10 border-b my-2 rounded-md appearance-none outline-none"
                 placeholder="Email"
-                // ref={emailRef}
                 onChange={changeHandler}
             />
             <input
@@ -76,7 +67,6 @@ const RegisterForm = () => {
                 type="password"
                 className="w-full px-3 h-10 border-b my-2 rounded-md"
                 placeholder="Password"
-                // ref={passwordRef}
                 onChange={changeHandler}
             />
             <div className="mt-auto flex justify-center">
