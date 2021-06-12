@@ -2,6 +2,7 @@ import User from "../../db/schemas/UserSchema";
 import bcrypt from "bcryptjs";
 import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
+import CustomError from "../../utils/customError";
 
 const signUp: RequestHandler = async (req, res, next) => {
     const { email } = req.body;
@@ -10,12 +11,10 @@ const signUp: RequestHandler = async (req, res, next) => {
     try {
         user = await User.findOne({ email });
         if (user) {
-            return res.json({
-                message: "Email already in use, please change it.",
-            });
+            throw new Error("Email already in use, please change it.");
         }
     } catch (error) {
-        next(new Error(error.message));
+        return next(new CustomError(error.message, 500));
     }
 
     // Password hashing
@@ -28,7 +27,7 @@ const signUp: RequestHandler = async (req, res, next) => {
             password,
         });
     } catch (error) {
-        next(error);
+        return next(new CustomError(error.message, 500));
     }
     // Token generation
     let token = jwt.sign(
