@@ -19,7 +19,7 @@ const UserSchema = new Schema({
     image: {
         type: String,
         default:
-            "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
+            "images/default.png",
     },
     watchlist: [
         {
