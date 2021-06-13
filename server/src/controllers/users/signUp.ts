@@ -38,12 +38,10 @@ const signUp: RequestHandler = async (req, res, next) => {
         }
     );
 
+    user = user.toObject();
+    delete user.password;
     return res.json({
-        user: {
-            id: user._id,
-            email: user.email,
-            token,
-        },
+        user,
         message: "Connected",
     });
 };
