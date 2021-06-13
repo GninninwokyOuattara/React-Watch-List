@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext } from "react";
 import { authContext, userData, authType } from "../context/authContext";
-import BackdropBlack from "../../components/BackdropBlack";
+import BackdropBlack from "./BackdropBlack";
 
 let server_url = process.env.REACT_APP_SERVER_DEV as string;
 
@@ -38,6 +38,7 @@ const LoginForm: React.FC<props> = (props) => {
         if (res.ok) {
             let response: { message: string; user: userData } =
                 await res.json();
+            props.onCancel();
             auth?.logHimIn(response.user);
         }
     };
@@ -46,8 +47,9 @@ const LoginForm: React.FC<props> = (props) => {
         <BackdropBlack onCancel={props.onCancel}>
             <form
                 action=""
-                className="border h-56 w-96 flex flex-col p-4 z-10 bg-white"
+                className="border h-56 w-96 flex flex-col p-4 z-30 bg-white"
                 onSubmit={submitHandler}
+                onClick={(event) => event.stopPropagation()}
             >
                 <h1 className="w-full text-center">Login and start Binging </h1>
                 <input
