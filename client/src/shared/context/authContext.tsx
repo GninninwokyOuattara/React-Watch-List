@@ -8,7 +8,7 @@ export interface userData {
     name: string;
     image: string;
     email: string;
-    id: string;
+    _id: string;
     token: string;
     expireIn?: string;
 }
