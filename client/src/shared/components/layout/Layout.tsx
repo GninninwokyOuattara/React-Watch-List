@@ -1,4 +1,5 @@
 import React from "react";
+import InfoBar from "../InfoBar";
 import BottomBar from "../navigation/BottomBar";
 import SideBar from "../navigation/SideBar";
 
@@ -12,6 +13,8 @@ const Layout: React.FC<props> = ({ children }) => {
             <div className="border-2 border-red-300 h-full sm:h-screen sm:flex-row flex flex-col ">
                 <SideBar />
                 {children}
+                <InfoBar />
+
                 <BottomBar />
             </div>
         </div>
