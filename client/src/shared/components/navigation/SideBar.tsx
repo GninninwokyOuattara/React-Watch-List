@@ -15,24 +15,32 @@ const SideBar = () => {
                 </li>
                 <li className="link">
                     <NavigationLink
-                        to="/"
+                        to="/explorer"
                         title="Explorer"
                         font="fa-telescope"
                         mr={2}
                     />
                 </li>
                 <li className="link">
-                    <NavigationLink to="/" title="Watchlist" font="fa-film" />
+                    <NavigationLink
+                        to="/watchlist"
+                        title="Watchlist"
+                        font="fa-film"
+                    />
                 </li>
                 <li className="link">
                     <NavigationLink
-                        to="/"
+                        to="/reviews"
                         title="Reviews"
                         font="fa-comment-alt"
                     />
                 </li>
                 <li className="link">
-                    <NavigationLink to="/" title="Profil" font="fa-user-alt" />
+                    <NavigationLink
+                        to="/profil"
+                        title="Profil"
+                        font="fa-user-alt"
+                    />
                 </li>
             </ul>
             <RegisterProvider>
@@ -63,7 +71,7 @@ export const NavigationLink: React.FC<NaviLink> = ({ title, font, mr, to }) => {
                                 <FontIcon
                                     font={font}
                                     mr={mr}
-                                    match={match!.isExact}
+                                    match={match?.isExact || false}
                                 />
                             )}
 
