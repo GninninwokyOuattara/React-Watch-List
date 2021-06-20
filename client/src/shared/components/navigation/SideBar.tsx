@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Route } from "react-router";
+import UserMiniProfile from "../UserMiniProfile";
+import RegisterProvider from "../../context/RegisterContext";
 
 const SideBar = () => {
     return (
@@ -32,7 +34,9 @@ const SideBar = () => {
                     <NavigationLink to="/" title="Profil" font="fa-user-alt" />
                 </li>
             </ul>
-            <div className="user mt-auto">Coming soon</div>
+            <RegisterProvider>
+                <UserMiniProfile />
+            </RegisterProvider>
         </aside>
     );
 };
