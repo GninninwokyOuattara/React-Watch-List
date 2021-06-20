@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Route } from "react-router";
 
 const SideBar = () => {
     return (
@@ -8,36 +8,28 @@ const SideBar = () => {
             <div className="brand my-10">Binge.it</div>
             <ul className="links">
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink title="Home" font="fal fa-home" />
-                    </NavLink>
+                    <NavigationLink to="/" title="Home" font="fal fa-home" />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink
-                            title="Explorer"
-                            font="fal fa-telescope"
-                            mr={2}
-                        />
-                    </NavLink>
+                    <NavigationLink
+                        to="/"
+                        title="Explorer"
+                        font="fa-telescope"
+                        mr={2}
+                    />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink title="Watchlist" font="fal fa-film" />
-                    </NavLink>
+                    <NavigationLink to="/" title="Watchlist" font="fa-film" />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink
-                            title="Reviews"
-                            font="fal fa-comment-alt"
-                        />
-                    </NavLink>
+                    <NavigationLink
+                        to="/"
+                        title="Reviews"
+                        font="fa-comment-alt"
+                    />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink title="Profil" font="fal fa-user-alt" />
-                    </NavLink>
+                    <NavigationLink to="/" title="Profil" font="fa-user-alt" />
                 </li>
             </ul>
             <div className="user mt-auto">Coming soon</div>
@@ -46,28 +38,51 @@ const SideBar = () => {
 };
 
 interface NaviLink {
+    to: string;
     title: string;
     font?: string;
     mr?: number;
 }
 
-export const NavigationLink: React.FC<NaviLink> = ({ title, font, mr }) => {
+export const NavigationLink: React.FC<NaviLink> = ({ title, font, mr, to }) => {
     return (
-        <div className="flex items-center my-4 h-12 rounded-md pl-1 hover:bg-red-200">
-            {font && <FontIcon font={font} mr={mr} />}
+        <NavLink to={to}>
+            <Route
+                path={to}
+                children={({ match }) => {
+                    return (
+                        <div className="flex items-center my-4 h-12 rounded-md pl-1 hover:bg-red-200">
+                            {font && (
+                                <FontIcon
+                                    font={font}
+                                    mr={mr}
+                                    match={match!.isExact}
+                                />
+                            )}
 
-            <div className="link-title hidden lg:block">{title}</div>
-        </div>
+                            <div className="link-title hidden lg:block">
+                                {title}
+                            </div>
+                        </div>
+                    );
+                }}
+            />
+        </NavLink>
     );
 };
 
 interface Font {
     font: string;
     mr?: number;
+    match: boolean;
 }
 
-export const FontIcon: React.FC<Font> = ({ font, mr }) => {
-    return <i className={`${font} mr-${mr || 3} fa-2x`}></i>;
+export const FontIcon: React.FC<Font> = ({ font, mr, match }) => {
+    return (
+        <i
+            className={`${match ? "fas" : "fal"} ${font} mr-${mr || 3} fa-2x`}
+        ></i>
+    );
 };
 
 export default SideBar;
