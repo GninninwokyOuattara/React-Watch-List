@@ -7,36 +7,36 @@ const BottomBar = () => {
         <div>
             <ul className="sm:hidden flex flex-row border border-blue-400 h-16 items-center justify-around">
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink title="Home" font="fal fa-home" />
-                    </NavLink>
+                    <NavigationLink to="/" title="Home" font="fal fa-home" />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink
-                            title="Explorer"
-                            font="fal fa-telescope"
-                            mr={2}
-                        />
-                    </NavLink>
+                    <NavigationLink
+                        to="/"
+                        title="Explorer"
+                        font="fal fa-telescope"
+                        mr={2}
+                    />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink title="Watchlist" font="fal fa-film" />
-                    </NavLink>
+                    <NavigationLink
+                        to="/"
+                        title="Watchlist"
+                        font="fal fa-film"
+                    />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink
-                            title="Reviews"
-                            font="fal fa-comment-alt"
-                        />
-                    </NavLink>
+                    <NavigationLink
+                        to="/"
+                        title="Reviews"
+                        font="fal fa-comment-alt"
+                    />
                 </li>
                 <li className="link">
-                    <NavLink to="/">
-                        <NavigationLink title="Profil" font="fal fa-user-alt" />
-                    </NavLink>
+                    <NavigationLink
+                        to="/"
+                        title="Profil"
+                        font="fal fa-user-alt"
+                    />
                 </li>
             </ul>
         </div>
