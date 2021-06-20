@@ -1,5 +1,6 @@
 import React from "react";
-import MainNavigationBar from "../navigation/MainNavigationBar";
+import BottomBar from "../navigation/BottomBar";
+import SideBar from "../navigation/SideBar";
 
 interface props {
     children: JSX.Element;
@@ -7,22 +8,11 @@ interface props {
 
 const Layout: React.FC<props> = ({ children }) => {
     return (
-        // <React.Fragment>
-        //     <div className="h-screen flex flex-row w-screen">
-        //         <div className="w-2/12 h-full">
-        //             <MainNavigationBar />
-        //         </div>
-        //         <div className="flex-1 flex overflow-hidden">
-        //             <div className="flex-1 overflow-y-scroll">{children}</div>
-        //         </div>
-        //     </div>
-        // </React.Fragment>
-        <div className="w-full h-full">
-            <div className="flex h-full">
-                <div className="w-64">
-                    <MainNavigationBar />
-                </div>
-                <div className="flex-grow bg-black-14">{children}</div>
+        <div className="h-screen">
+            <div className="border-2 border-red-300 h-full sm:h-screen sm:flex-row flex flex-col ">
+                <SideBar />
+                {children}
+                <BottomBar />
             </div>
         </div>
     );
