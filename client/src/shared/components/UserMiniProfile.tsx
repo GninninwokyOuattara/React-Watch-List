@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { authContext, authType } from "../context/authContext";
+import { LoginContext, LoginType } from "../context/LoginContext";
 import { RegisterContext, registerType } from "../context/RegisterContext";
+import LoginForm from "./Login";
 import RegisterForm from "./RegisterForm";
 
 const UserMiniProfile = () => {
@@ -8,6 +10,9 @@ const UserMiniProfile = () => {
     const { showRegister, hideRegisterForm, showRegisterForm } = useContext(
         RegisterContext
     ) as registerType;
+    const { hideLoginForm, showLogin, showLoginForm } = useContext(
+        LoginContext
+    ) as LoginType;
 
     let content: JSX.Element;
 
@@ -22,8 +27,12 @@ const UserMiniProfile = () => {
         content = (
             <React.Fragment>
                 {showRegister && <RegisterForm onCancel={hideRegisterForm} />}
+                {showLogin && <LoginForm onCancel={hideLoginForm} />}
                 <div className="mt-auto mb-2 flex flex-col justify-between h-24">
-                    <button className="h-10 w-full rounded-md bg-red-300">
+                    <button
+                        className="h-10 w-full rounded-md bg-red-300"
+                        onClick={showLoginForm}
+                    >
                         Login
                     </button>
                     <button
