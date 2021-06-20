@@ -6,7 +6,7 @@ import LoginForm from "./Login";
 import RegisterForm from "./RegisterForm";
 
 const UserMiniProfile = () => {
-    const { isLoggedIn } = useContext(authContext) as authType;
+    const { isLoggedIn, userData } = useContext(authContext) as authType;
     const { showRegister, hideRegisterForm, showRegisterForm } = useContext(
         RegisterContext
     ) as registerType;
@@ -19,8 +19,12 @@ const UserMiniProfile = () => {
     if (isLoggedIn) {
         content = (
             <div className="user mt-auto border-gray-500 h-20 flex  flex-col items-center">
-                <div className="userPic w-10 h-10 border rounded-full"></div>
-                <p className="user-name">Idriss Ouattara</p>
+                <img
+                    className="userPic w-10 h-10 border rounded-full"
+                    src={userData?.image}
+                    alt={userData?.name}
+                />
+                <p className="user-name">{userData?.name}</p>
             </div>
         );
     } else {
