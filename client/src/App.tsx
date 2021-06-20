@@ -21,19 +21,33 @@ const App = () => {
 
     return (
         <Router>
-            <Switch>
-                <Route path="/" exact>
-                    <Home />
-                </Route>
-                <Route path="/test" exact>
-                    <Test />
-                </Route>
-                <Route path="/me" exact>
-                    <UserPage />
-                </Route>
+            <Layout>
+                <Switch>
+                    <Route path="/" exact>
+                        <MainPage />
+                    </Route>
+                    <Route path="/explorer" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/watchlist" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/reviews" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/profil" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/test" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/me" exact>
+                        <UserPage />
+                    </Route>
 
-                <Redirect to="/auth" />
-            </Switch>
+                    <Redirect to="/auth" />
+                </Switch>
+            </Layout>
         </Router>
     );
 };
