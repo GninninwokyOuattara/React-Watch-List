@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SideBar = () => {
     return (
-        <aside className="hidden md:flex sidebar w-64 h-full border border-blue-300 flex-col px-4">
+        <aside className="hidden md:flex sidebar md:w-16 lg:w-64 h-full border border-blue-300 flex-col px-2">
             <div className="brand my-10">Binge.it</div>
             <ul className="links">
                 <li className="link">
@@ -48,10 +48,10 @@ interface NaviLink {
 
 export const NavigationLink: React.FC<NaviLink> = ({ title, font, mr }) => {
     return (
-        <div className="flex items-center my-4">
+        <div className="flex items-center my-4 h-12 rounded-md pl-1 hover:bg-red-200">
             {font && <FontIcon font={font} mr={mr} />}
 
-            <div className="link-title">{title}</div>
+            <div className="link-title hidden lg:block">{title}</div>
         </div>
     );
 };
