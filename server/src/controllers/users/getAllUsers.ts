@@ -8,6 +8,7 @@ import User from "../../db/schemas/UserSchema";
 interface userData {
     _id: string;
     name: string;
+    image: string;
     email: string;
     password?: string;
     watchlist: string[];
@@ -26,6 +27,7 @@ const getAllUsers: RequestHandler = async (req, res, next) => {
                     {
                         _id: user._id,
                         name: user.name,
+                        image: user.image,
                         email: user.email,
                         watchlist: user.watchlist,
                     },
