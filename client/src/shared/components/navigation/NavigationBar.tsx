@@ -6,7 +6,11 @@ import RegisterForm from "../RegisterForm";
 
 import { authContext, authType } from "../../context/authContext";
 
-const NavigationBar = () => {
+interface props {
+    fixed?: boolean;
+}
+
+const NavigationBar: React.FC<props> = (props) => {
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
 
@@ -19,7 +23,9 @@ const NavigationBar = () => {
                 <RegisterForm onCancel={() => setShowRegister(false)} />
             )}
             <header
-                className="w-screen h-16 border flex md:justify-between items-center px-4 mb-2"
+                className={`${
+                    props.fixed && "fixed"
+                } w-screen h-16 border flex md:justify-between items-center px-4 z-10 bg-transparent`}
                 id="header"
             >
                 <button className="burger md:hidden h-full w-16 flex flex-col items-center justify-center hover:text-gray-500">

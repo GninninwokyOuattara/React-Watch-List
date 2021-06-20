@@ -12,6 +12,7 @@ import Layout from "./shared/components/layout/Layout";
 import MainPage from "./pages/MainPage";
 import Test from "./shared/components/layout/Test";
 import Home from "./pages/Home";
+import UserPage from "./pages/UserPage";
 
 import { authContext, authType } from "./shared/context/authContext";
 
@@ -26,6 +27,9 @@ const App = () => {
                 </Route>
                 <Route path="/test" exact>
                     <Test />
+                </Route>
+                <Route path="/me" exact>
+                    <UserPage />
                 </Route>
 
                 <Redirect to="/auth" />

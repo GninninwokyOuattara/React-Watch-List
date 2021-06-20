@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const apiKey = process.env.REACT_APP_OMDB_KEY;
+
 type movieData = {
     Title: string;
     Year: string;
