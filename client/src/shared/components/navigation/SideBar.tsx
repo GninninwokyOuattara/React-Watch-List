@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SideBar = () => {
     return (
-        <aside className="hidden md:flex sidebar md:w-16 lg:w-64 h-full border border-blue-300 flex-col px-2">
+        <aside className="hidden sm:flex sidebar sm:w-16 lg:w-64 h-full border border-blue-300 flex-col px-2 ">
             <div className="brand my-10">Binge.it</div>
             <ul className="links">
                 <li className="link">
@@ -32,6 +32,11 @@ const SideBar = () => {
                             title="Reviews"
                             font="fal fa-comment-alt"
                         />
+                    </NavLink>
+                </li>
+                <li className="link">
+                    <NavLink to="/">
+                        <NavigationLink title="Profil" font="fal fa-user-alt" />
                     </NavLink>
                 </li>
             </ul>
