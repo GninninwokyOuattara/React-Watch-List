@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Route } from "react-router";
 import UserMiniProfile from "../UserMiniProfile";
 import RegisterProvider from "../../context/RegisterContext";
+import LoginProvider from "../../context/LoginContext";
 
 const SideBar = () => {
     return (
@@ -35,7 +36,9 @@ const SideBar = () => {
                 </li>
             </ul>
             <RegisterProvider>
-                <UserMiniProfile />
+                <LoginProvider>
+                    <UserMiniProfile />
+                </LoginProvider>
             </RegisterProvider>
         </aside>
     );
