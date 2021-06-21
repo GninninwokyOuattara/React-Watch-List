@@ -1,7 +1,7 @@
 import React from "react";
-import InfoBar from "../shared/components/InfoBar";
-import BottomBar from "../shared/components/navigation/BottomBar";
-import SideBar from "../shared/components/navigation/SideBar";
+import InfoBar from "../../shared/components/InfoBar";
+import BottomBar from "../../shared/components/navigation/BottomBar";
+import SideBar from "../../shared/components/navigation/SideBar";
 
 const MainPage = () => {
     return (

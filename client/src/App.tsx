@@ -9,12 +9,13 @@ import {
 import logo from "./logo.svg";
 import "./App.css";
 import Layout from "./shared/components/layout/Layout";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/mainPage/MainPage";
 import Test from "./shared/components/layout/Test";
 import Home from "./pages/Home";
 import UserPage from "./pages/UserPage";
 
 import { authContext, authType } from "./shared/context/authContext";
+import Explore from "./pages/explore/Explore";
 
 const App = () => {
     const { isLoggedIn, userData } = useContext(authContext) as authType;
@@ -27,7 +28,7 @@ const App = () => {
                         <MainPage />
                     </Route>
                     <Route path="/explorer" exact>
-                        <Test />
+                        <Explore />
                     </Route>
                     <Route path="/watchlist" exact>
                         <Test />
