@@ -32,9 +32,9 @@ const UserMiniProfile = () => {
             <React.Fragment>
                 {showRegister && <RegisterForm onCancel={hideRegisterForm} />}
                 {showLogin && <LoginForm onCancel={hideLoginForm} />}
-                <div className="mt-auto mb-2 flex flex-col justify-between h-24">
+                <div className="hidden lg:flex mt-auto mb-2 flex-col h-24">
                     <button
-                        className="h-10 w-full rounded-md bg-red-300"
+                        className="h-10 w-full rounded-md bg-red-300 mb-4"
                         onClick={showLoginForm}
                     >
                         Login
