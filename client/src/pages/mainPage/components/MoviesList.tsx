@@ -2,7 +2,7 @@ import React from "react";
 import MovieItem from "./MovieItem";
 import { props as movieData } from "./MovieItem";
 
-interface props {
+export interface props {
     moviesData: {
         Response: boolean;
         totalResults: string;
