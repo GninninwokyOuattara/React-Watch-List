@@ -9,7 +9,7 @@ interface props {
 
 const Layout: React.FC<props> = ({ children }) => {
     return (
-        <div className="h-screen">
+        <div className="h-full">
             <div className="border-2 border-red-300 h-full sm:h-screen sm:flex-row flex flex-col ">
                 <SideBar />
                 {children}
