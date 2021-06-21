@@ -7,7 +7,7 @@ import LoginProvider from "../../context/LoginContext";
 
 const SideBar = () => {
     return (
-        <aside className="hidden sm:flex sidebar sm:w-16 lg:w-64 h-full border border-blue-300 flex-col px-2 ">
+        <aside className="hidden sm:flex sidebar sm:w-18 lg:w-64 h-full border border-blue-300 flex-col px-2 overflow-y-auto">
             <div className="brand my-10">Binge.it</div>
             <ul className="links">
                 <li className="link">
