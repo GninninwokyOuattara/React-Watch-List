@@ -20,8 +20,6 @@ interface searchErrorType {
 }
 
 const useOmdb = () => {
-    console.log(process.env.REACT_APP_OMDB_KEY);
-
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [searchdata, setSearchData] = useState<movieDataArray>();
