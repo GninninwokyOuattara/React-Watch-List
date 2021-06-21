@@ -1,8 +1,13 @@
 import React from "react";
 import MovieItem from "./MovieItem";
+import { props as movieData } from "./MovieItem";
 
 interface props {
-    moviesData: any;
+    moviesData: {
+        Response: boolean;
+        totalResults: string;
+        Search: movieData[];
+    };
 }
 
 const MoviesList: React.FC<props> = ({ moviesData }) => {

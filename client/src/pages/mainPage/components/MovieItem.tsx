@@ -1,6 +1,6 @@
 import React from "react";
 
-interface props {
+export interface props {
     movieData: {
         Title: string;
         Poster: string;
