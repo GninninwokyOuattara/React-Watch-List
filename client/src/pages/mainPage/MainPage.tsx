@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import useOmdb from "../../shared/components/hooks/useOmdb";
+import MoviesList from "./components/MoviesList";
 
 const MainPage = () => {
     const [isSearching, setIsSearching] = useState(false);
@@ -23,7 +24,7 @@ const MainPage = () => {
         <React.Fragment>
             <main className="main-content p-2 w-full h-full">
                 <div className="flex flex-col overflow-auto h-full border-2 border-green-500">
-                    <div className="search-bar w-full border flex justify-center">
+                    <div className="search-bar w-full border flex justify-center mb-4">
                         <form
                             className="bg-gray-100 w-9/12 h-10 rounded-md"
                             onSubmit={searchHandler}
@@ -36,6 +37,9 @@ const MainPage = () => {
                             <i className=" fas fa-search"></i>
                         </form>
                     </div>
+                    {searchdata && (
+                        <MoviesList moviesData={searchdata as any} />
+                    )}
                 </div>
             </main>
         </React.Fragment>
