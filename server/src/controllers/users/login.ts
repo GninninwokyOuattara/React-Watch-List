@@ -16,14 +16,20 @@ const login: RequestHandler = async (req, res, next) => {
                     process.env.SECRET as string,
                     { expiresIn: "1d" }
                 );
+                user = user.toObject()
+                delete user.password
                 res.json({
                     message: "Connected",
+<<<<<<< HEAD
                     user: {
                         id: user._id,
                         email: user.email,
                         image: user.image,
                         token,
                     },
+=======
+                    user,
+>>>>>>> v2
                 });
             } else {
                 res.status(401).json({ message: "Invalid Password" });

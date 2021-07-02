@@ -8,49 +8,47 @@ import {
 
 import logo from "./logo.svg";
 import "./App.css";
+import Layout from "./shared/components/layout/Layout";
+import MainPage from "./pages/mainPage/MainPage";
+import Test from "./shared/components/layout/Test";
+import Home from "./pages/Home";
+import UserPage from "./pages/UserPage";
 
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/SignUp";
-import MainNavigation from "./components/navigation/MainNavigation";
-import { Auth } from "./context/AuthContext";
-import MyWatchList from "./pages/MyWatchList";
+import { authContext, authType } from "./shared/context/authContext";
+import Explore from "./pages/explore/Explore";
 
 const App = () => {
-    const auth = useContext(Auth);
-
-    let router;
-    if (auth?.isLoggedIn) {
-        router = (
-            <Switch>
-                <Route path="/" exact>
-                    <h1>Index Page</h1>
-                </Route>
-                <Route path="/me" exact>
-                    <MyWatchList />
-                </Route>
-                <Redirect to="/" />
-            </Switch>
-        );
-    } else {
-        router = (
-            <Switch>
-                <Route path="/" exact>
-                    <h1>Index Page</h1>
-                </Route>
-                <Route path="/login" exact>
-                    <LoginPage />
-                </Route>
-                <Route path="/register" exact>
-                    <RegisterPage />
-                </Route>
-            </Switch>
-        );
-    }
+    const { isLoggedIn, userData } = useContext(authContext) as authType;
 
     return (
         <Router>
-            <MainNavigation />
-            <main>{router}</main>
+            <Layout>
+                <Switch>
+                    <Route path="/" exact>
+                        <MainPage />
+                    </Route>
+                    <Route path="/explorer" exact>
+                        <Explore />
+                    </Route>
+                    <Route path="/watchlist" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/reviews" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/profil" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/test" exact>
+                        <Test />
+                    </Route>
+                    <Route path="/me" exact>
+                        <UserPage />
+                    </Route>
+
+                    <Redirect to="/auth" />
+                </Switch>
+            </Layout>
         </Router>
     );
 };

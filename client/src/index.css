@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
 body {
     margin: 0;
-    background-color: #000000;
+    height: 100%;
+
+    width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
         "Helvetica Neue", sans-serif;
@@ -12,7 +19,35 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+    width: 100%;
+    height: 100%;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: relative;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
+}
+
+.bg-darkish {
+    background-color: #1a1c1e;
+}
+
+.bg-black-14 {
+    background-color: #141414;
+}
+.bg-black-18 {
+    background-color: #18181a;
+}
+
+.bg-dark {
+    background-color: #18181a;
+}
+
+.bg-dark-light {
+    background-color: #1b1a1d;
 }

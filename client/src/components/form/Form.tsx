@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import Button from "../shared/Button";
-import Input from "../shared/Input";
-
-import { Auth } from "../../context/AuthContext";
+import React, { useState, useEffect } from "react";
+// import Button from "../shared/Button";
+import Button from "../../shared/components/ui/Button";
+// import Input from "../../shared/Input";
+// import Input from "../../shared/components/ui/Input"
 
 const Form = () => {
-    const auth = useContext(Auth);
     const [formData, setFormData] = useState({});
 
     const setForm = (id: string, value: string) => {
@@ -19,22 +18,7 @@ const Form = () => {
         event
     ) => {
         event.preventDefault();
-        const response = await fetch(
-            `${process.env.REACT_APP_SERVER_DEV}/users/login`,
-            {
-                method: "POST",
-                body: JSON.stringify(formData),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
-
-        const { user } = await response.json();
-        console.log(user);
-        if (user) {
-            auth?.logMeIn(user);
-        }
+        fetch("http://localhost:3000");
     };
 
     return (
@@ -42,14 +26,9 @@ const Form = () => {
             className="flex flex-col w-80 h-96 bg-black rounded-md px-3 py-4"
             onSubmit={submitHandler}
         >
-            <Input for={"email"} type="text" inputHandler={setForm} />
-            <Input
-                for={"password"}
-                type="password"
-                inputHandler={setForm}
-                min={8}
-            />
-            <Button bottom>Log In</Button>
+            {/* <Input for={"email"} type="text" inputHandler={setForm} />
+            <Input for={"password"} type="password" inputHandler={setForm} />
+            <Button bottom>Log In</Button> */}
         </form>
     );
 };
