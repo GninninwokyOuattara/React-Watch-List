@@ -22,7 +22,7 @@ interface searchErrorType {
 const useOmdb = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
-    const [searchdata, setSearchData] = useState<movieDataArray>();
+    const [searchData, setSearchData] = useState<movieDataArray>();
 
     const search = async (s: string, page: number = 1) => {
         setIsLoading(true);
@@ -42,7 +42,7 @@ const useOmdb = () => {
         setIsLoading(false);
     };
 
-    return { searchdata, search, error, isLoading };
+    return { searchData, search, error, isLoading };
 };
 
 export default useOmdb;

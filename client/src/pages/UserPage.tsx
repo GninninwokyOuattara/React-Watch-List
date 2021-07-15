@@ -10,7 +10,7 @@ const UserPage: React.FC = () => {
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
-    const { search, searchdata, error, isLoading } = useOmdb();
+    const { search, searchData, error, isLoading } = useOmdb();
 
     const submit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
@@ -27,8 +27,8 @@ const UserPage: React.FC = () => {
             </form>
             {data && <div>Word</div>}
             <div className="overflow-y-auto border-4 border-black h-full">
-                {searchdata &&
-                    searchdata.Search.map((movie) => {
+                {searchData &&
+                    searchData.Search.map((movie) => {
                         return <img src={`${movie.Poster}`} alt="" />;
                     })}
             </div>
