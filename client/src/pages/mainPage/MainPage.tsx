@@ -4,10 +4,11 @@ import MoviesList from "./components/MoviesList";
 
 const MainPage = () => {
     const [isSearching, setIsSearching] = useState(false);
+    const [previousResults, setPreviousResults] = useState<any>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const { search, searchdata, error, isLoading } = useOmdb();
+    const { search, searchData, error, isLoading } = useOmdb();
 
     const searchHandler: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
@@ -16,9 +17,34 @@ const MainPage = () => {
         }
     };
 
+    const getPreviousSearchResults = () => {
+        const pre = localStorage.getItem("searchResults");
+        if (pre) {
+            const data = JSON.parse(pre);
+            setPreviousResults(data);
+        }
+    };
+
     useEffect(() => {
-        console.log(searchdata);
-    }, [searchdata]);
+        if (searchData) {
+            localStorage.setItem("searchResults", JSON.stringify(searchData));
+        }
+    }, [searchData]);
+
+    useEffect(() => {
+        console.log("Looking for previous");
+        getPreviousSearchResults();
+        console.log(previousResults);
+    }, []);
+
+    let content: any;
+    if (searchData) {
+        content = searchData;
+    } else if (previousResults) {
+        content = previousResults;
+    } else {
+        content = null;
+    }
 
     return (
         <React.Fragment>
@@ -37,9 +63,12 @@ const MainPage = () => {
                             <i className=" fas fa-search"></i>
                         </form>
                     </div>
-                    {searchdata && (
-                        <MoviesList moviesData={searchdata as any} />
-                    )}
+                    {/* {searchData && (
+                        <MoviesList
+                            moviesData={searchData as any}
+                        />
+                    )} */}
+                    {content && <MoviesList moviesData={content as any} />}
                 </div>
             </main>
         </React.Fragment>
