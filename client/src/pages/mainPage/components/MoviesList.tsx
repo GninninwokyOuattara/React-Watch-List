@@ -11,11 +11,10 @@ export interface props {
 }
 
 const MoviesList: React.FC<props> = ({ moviesData }) => {
-    console.log(moviesData);
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {moviesData.Search.map((movie: any) => {
-                return <MovieItem movieData={movie} />;
+            {moviesData.Search.map((movie: any, idx: number) => {
+                return <MovieItem movieData={movie} key={idx} />;
             })}
         </div>
     );
