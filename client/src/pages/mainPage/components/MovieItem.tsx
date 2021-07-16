@@ -25,7 +25,7 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
     return (
         // <ModalHover></ModalHover>
         <React.Fragment>
-            <DetailsModal show={showModal} />
+            <DetailsModal show={showModal} imdbID={movieData.imdbID} />
             <div
                 className="bg-red-100 h-48 w-36 flex"
                 ref={itemRef}
