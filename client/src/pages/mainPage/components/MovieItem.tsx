@@ -12,26 +12,51 @@ export interface props {
 }
 
 const MovieItem: React.FC<props> = ({ movieData }) => {
-    const itemRef = useRef<HTMLInputElement>(null);
+    const itemRef = useRef<HTMLDivElement>(null);
+    let topRef = useRef<number>(0);
+    let leftRef = useRef<number>(0);
+    let relativeMiddle = useRef<number>(0);
     const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        let item: HTMLDivElement;
+        if (itemRef.current) {
+            item = itemRef.current;
+            item.addEventListener("mouseenter", (e) => {
+                setShowModal(true);
+            });
+
+            item.addEventListener("mouseleave", (e) => {
+                setShowModal(false);
+            });
+        }
+        let mainMovieContainter = document.querySelector(
+            "#root > div > div > main > div > div.grid"
+        );
+
+        relativeMiddle.current =
+            mainMovieContainter!.getBoundingClientRect().left +
+            mainMovieContainter!.getBoundingClientRect().width / 2;
+    }, [itemRef]);
 
     useEffect(() => {
         if (itemRef.current) {
             const rect = itemRef.current?.getBoundingClientRect();
-            console.log(rect.top, rect.left);
+            topRef.current = rect.top;
+            leftRef.current = rect.left;
         }
     }, []);
 
     return (
-        // <ModalHover></ModalHover>
         <React.Fragment>
-            <DetailsModal show={showModal} imdbID={movieData.imdbID} />
-            <div
-                className="bg-red-100 h-48 w-36 flex"
-                ref={itemRef}
-                onMouseEnter={() => setShowModal(true)}
-                onMouseLeave={() => setShowModal(false)}
-            >
+            <DetailsModal
+                show={showModal}
+                imdbID={movieData.imdbID}
+                top={topRef.current}
+                left={leftRef.current}
+                relativeMiddle={relativeMiddle.current}
+            />
+            <div className="bg-red-100 h-48 w-36 flex" ref={itemRef}>
                 <img
                     src={movieData.Poster}
                     alt={movieData.Title}
