@@ -10,7 +10,7 @@ type movieData = {
     Poster: string;
 };
 
-interface movieDataArray {
+export interface movieDataArray {
     Search: movieData[];
 }
 
@@ -19,10 +19,18 @@ interface searchErrorType {
     Error: string;
 }
 
+export interface movieDataDetails {
+    Plot: string;
+    Runtime: string;
+    Genre: string;
+}
+
 const useOmdb = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
-    const [searchData, setSearchData] = useState<movieDataArray>();
+    const [searchData, setSearchData] = useState<
+        movieDataArray | movieDataDetails
+    >();
 
     const search = async (s: string, page: number = 1) => {
         setIsLoading(true);
@@ -42,7 +50,32 @@ const useOmdb = () => {
         setIsLoading(false);
     };
 
-    return { searchData, search, error, isLoading };
+    const searchDetails = async (s: string) => {
+        setIsLoading(true);
+        let res = await fetch(
+            `http://www.omdbapi.com/?apiKey=${apiKey}&i=${s}&plot=full`
+        );
+        let response: movieDataDetails | searchErrorType;
+        response = await res.json();
+        if ("Error" in response) {
+            console.log(Error);
+            setSearchData(undefined);
+            setError(response.Error);
+        } else {
+            setError("");
+            setSearchData(response);
+        }
+        setIsLoading(false);
+    };
+
+    return {
+        searchData,
+        search,
+        searchDetails,
+        error,
+        isLoading,
+        setSearchData,
+    };
 };
 
 export default useOmdb;
