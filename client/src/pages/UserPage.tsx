@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import useOmdb from "../shared/components/hooks/useOmdb";
+import useOmdb, { movieDataArray } from "../shared/components/hooks/useOmdb";
 
 import { authContext, authType } from "../shared/context/authContext";
 
@@ -28,7 +28,7 @@ const UserPage: React.FC = () => {
             {data && <div>Word</div>}
             <div className="overflow-y-auto border-4 border-black h-full">
                 {searchData &&
-                    searchData.Search.map((movie) => {
+                    (searchData as movieDataArray).Search.map((movie) => {
                         return <img src={`${movie.Poster}`} alt="" />;
                     })}
             </div>
