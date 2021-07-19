@@ -14,57 +14,37 @@ interface props {
 interface Details {
     [key: string]: movieDataDetails;
 }
-// spinner
-
-{
-    /* <div className="w-full h-full flex items-center justify-center">
-    <i className="fad fa-spinner-third fa-10x animate-spin"></i>
-</div>; */
-}
 
 const DetailsModal: React.FC<props> = (props) => {
     console.log(props.imdbID);
 
     const divRef = useRef<HTMLDivElement>(null);
+    const imdbDetailsRef = useRef<Details>({});
     const [imdbID, setImdbID] = useState(props.imdbID);
 
     const { error, isLoading, searchDetails, searchData, setSearchData } =
         useOmdb();
 
-    let imdbDetails: Details;
-    let data = localStorage.getItem("movieDetails");
-    if (data) {
-        imdbDetails = JSON.parse(data);
-    } else {
-        localStorage.setItem("movieDetails", JSON.stringify({}));
-        imdbDetails = {};
-    }
+    let data: { [key: string]: movieDataDetails } = JSON.parse(
+        localStorage.getItem("movieDetails") as string
+    );
 
-    // useEffect(() => {
-    //     console.log(imdbID);
-    //     if (imdbDetails && imdbDetails[props.imdbID as any]) {
-    //         console.log("Set since found");
-    //         setSearchData(imdbDetails[props.imdbID as any]);
-    //     } else {
-    //         console.log("search");
-    //         searchDetails(props.imdbID);
-    //         imdbDetails[props.imdbID] = searchData as movieDataDetails;
-    //         console.log(imdbDetails);
-    //         localStorage.removeItem("movieDetails");
-    //         localStorage.setItem("movieDetails", JSON.stringify(imdbDetails));
-    //     }
-
-    //     // let data = localStorage.getItem("movieDetails");
-    //     // if (data) {
-    //     //     data = JSON.parse(data);
-
-    //     //     if (data !== null && data[props.imdbID as any]) {
-    //     //         console.log(data);
-    //     //     } else {
-    //     //         searchDetails(props.imdbID);
-    //     //     }
-    //     // }
-    // }, [imdbID]);
+    useEffect(() => {
+        if (props.show) {
+            console.log(imdbID);
+            if (!searchData) {
+                if (data && data[props.imdbID as any]) {
+                    console.log("Set since found");
+                    setSearchData(data[props.imdbID]);
+                } else {
+                    console.log("search");
+                    searchDetails(props.imdbID);
+                }
+            } else {
+                console.log(searchData);
+            }
+        }
+    });
 
     return (
         <React.Fragment>
@@ -80,16 +60,16 @@ const DetailsModal: React.FC<props> = (props) => {
                     }}
                     ref={divRef}
                 >
-                    <div className="w-full h-full flex items-center justify-center">
-                        <i className="fad fa-spinner-third fa-10x fa-spin"></i>
-                    </div>
-                    {/* {isLoading ? (
+                    {isLoading ? (
                         <div className="w-full h-full flex items-center justify-center">
-                            <i className="fad fa-spinner-third fa-10x animate-spin"></i>
+                            <i className="fad fa-spinner-third fa-10x fa-spin"></i>
                         </div>
                     ) : (
-                        <h2>{(searchData as movieDataDetails).Plot}</h2>
-                    )} */}
+                        <h2>
+                            {searchData &&
+                                (searchData as movieDataDetails).Plot}
+                        </h2>
+                    )}
                 </div>
             )}
         </React.Fragment>
