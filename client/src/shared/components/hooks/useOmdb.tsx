@@ -50,10 +50,12 @@ const useOmdb = () => {
         setIsLoading(false);
     };
 
-    const searchDetails = useCallback(async (s: string) => {
+    const searchDetails = useCallback(async (s: string, full = false) => {
         setIsLoading(true);
         let res = await fetch(
-            `http://www.omdbapi.com/?apiKey=${apiKey}&i=${s}&plot=full`
+            `http://www.omdbapi.com/?apiKey=${apiKey}&i=${s}&${
+                full && "plot=full"
+            }`
         );
         let response: movieDataDetails | searchErrorType;
         response = await res.json();
