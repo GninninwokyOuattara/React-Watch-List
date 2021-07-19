@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 const apiKey = process.env.REACT_APP_OMDB_KEY;
 
@@ -50,7 +50,7 @@ const useOmdb = () => {
         setIsLoading(false);
     };
 
-    const searchDetails = async (s: string) => {
+    const searchDetails = useCallback(async (s: string) => {
         setIsLoading(true);
         let res = await fetch(
             `http://www.omdbapi.com/?apiKey=${apiKey}&i=${s}&plot=full`
@@ -58,15 +58,19 @@ const useOmdb = () => {
         let response: movieDataDetails | searchErrorType;
         response = await res.json();
         if ("Error" in response) {
-            console.log(Error);
             setSearchData(undefined);
             setError(response.Error);
         } else {
             setError("");
             setSearchData(response);
+            let data: { [key: string]: movieDataDetails } = JSON.parse(
+                localStorage.getItem("movieDetails") as string
+            );
+            data[s] = searchData as movieDataDetails;
+            localStorage.setItem("movieDetails", JSON.stringify(data));
         }
         setIsLoading(false);
-    };
+    }, []);
 
     return {
         searchData,
