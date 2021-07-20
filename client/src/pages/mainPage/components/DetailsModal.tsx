@@ -16,8 +16,6 @@ interface Details {
 }
 
 const DetailsModal: React.FC<props> = (props) => {
-    console.log(props.imdbID);
-
     const divRef = useRef<HTMLDivElement>(null);
     const imdbDetailsRef = useRef<Details>({});
     const [imdbID, setImdbID] = useState(props.imdbID);
@@ -31,17 +29,13 @@ const DetailsModal: React.FC<props> = (props) => {
 
     useEffect(() => {
         if (props.show) {
-            console.log(imdbID);
             if (!searchData) {
                 if (data && data[props.imdbID as any]) {
-                    console.log("Set since found");
                     setSearchData(data[props.imdbID]);
                 } else {
-                    console.log("search");
                     searchDetails(props.imdbID);
                 }
             } else {
-                console.log(searchData);
             }
         }
     });
