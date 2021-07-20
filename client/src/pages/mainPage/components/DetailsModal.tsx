@@ -19,6 +19,7 @@ const DetailsModal: React.FC<props> = (props) => {
     const divRef = useRef<HTMLDivElement>(null);
     const imdbDetailsRef = useRef<Details>({});
     const [imdbID, setImdbID] = useState(props.imdbID);
+    const [isHovered, setIsHovered] = useState(false);
 
     const { error, isLoading, searchDetails, searchData, setSearchData } =
         useOmdb();
@@ -47,9 +48,27 @@ const DetailsModal: React.FC<props> = (props) => {
         }
     });
 
+    useEffect(() => {
+        if (divRef.current) {
+            divRef.current.addEventListener("mouseenter", (e) => {
+                setIsHovered(true);
+            });
+            divRef.current.addEventListener("mouseleave", (e) => {
+                setIsHovered(false);
+            });
+        }
+
+        return () => {
+            if (divRef.current) {
+                divRef.current.removeEventListener("mouseenter", (e) => {});
+                divRef.current.removeEventListener("mousleave", (e) => {});
+            }
+        };
+    }, [props.show]);
+
     return (
         <React.Fragment>
-            {props.show && (
+            {(props.show || isHovered) && (
                 <div
                     className="w-72 h-48 bg-blue-300 fixed z-40"
                     style={{
