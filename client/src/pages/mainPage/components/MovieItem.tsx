@@ -37,6 +37,11 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
         relativeMiddle.current =
             mainMovieContainter!.getBoundingClientRect().left +
             mainMovieContainter!.getBoundingClientRect().width / 2;
+
+        return () => {
+            item.removeEventListener("mouseenter", (e) => {});
+            item.removeEventListener("mouseleave", (e) => {});
+        };
     }, [itemRef]);
 
     useEffect(() => {
