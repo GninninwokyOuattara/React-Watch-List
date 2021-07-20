@@ -27,6 +27,13 @@ const DetailsModal: React.FC<props> = (props) => {
         localStorage.getItem("movieDetails") as string
     );
 
+    if (!data) {
+        localStorage.setItem(
+            "movieDetails",
+            JSON.stringify(imdbDetailsRef.current)
+        );
+    }
+
     useEffect(() => {
         if (props.show) {
             if (!searchData) {
@@ -49,7 +56,7 @@ const DetailsModal: React.FC<props> = (props) => {
                         top: props.top,
                         left:
                             props.relativeMiddle - props.left < 0
-                                ? props.left - 295
+                                ? props.left - 305
                                 : props.left + 165,
                     }}
                     ref={divRef}
