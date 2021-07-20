@@ -20,14 +20,18 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
 
     useEffect(() => {
         let item: HTMLDivElement;
+        let timeoutId: ReturnType<typeof setTimeout>;
         if (itemRef.current) {
             item = itemRef.current;
             item.addEventListener("mouseenter", (e) => {
+                clearTimeout(timeoutId);
                 setShowModal(true);
             });
 
             item.addEventListener("mouseleave", (e) => {
-                setShowModal(false);
+                timeoutId = setTimeout(() => {
+                    setShowModal(false);
+                }, 100);
             });
         }
         let mainMovieContainter = document.querySelector(
@@ -41,6 +45,7 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
         return () => {
             item.removeEventListener("mouseenter", (e) => {});
             item.removeEventListener("mouseleave", (e) => {});
+            clearTimeout(timeoutId);
         };
     }, [itemRef]);
 
