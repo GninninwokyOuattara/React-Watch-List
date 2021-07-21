@@ -72,7 +72,7 @@ const DetailsModal: React.FC<props> = (props) => {
         <React.Fragment>
             {(props.show || isHovered) && (
                 <div
-                    className="w-72 h-48 bg-blue-300 fixed z-40"
+                    className="w-72 min-h-48 bg-red-100 fixed z-40 rounded-md"
                     style={{
                         top: props.top >= 0 ? props.top : 0,
                         left:
@@ -96,7 +96,7 @@ const DetailsModal: React.FC<props> = (props) => {
                                         height: 0,
                                         borderTop: "15px solid transparent",
                                         borderBottom: "15px solid transparent",
-                                        borderRight: "15px solid red",
+                                        borderRight: "15px solid #fee2e2",
                                         position: "absolute",
                                         left: "-15px",
                                         top: "15px",
@@ -110,18 +110,27 @@ const DetailsModal: React.FC<props> = (props) => {
                                         height: 0,
                                         borderTop: "15px solid transparent",
                                         borderBottom: "15px solid transparent",
-                                        borderLeft: "15px solid red",
+                                        borderLeft: "15px solid #fee2e2",
                                         position: "absolute",
                                         right: "-15px",
                                         top: "15px",
                                     }}
                                 ></div>
                             )}
-
-                            <h2>
-                                {searchData &&
-                                    (searchData as movieDataDetails).Plot}
-                            </h2>
+                            <div className="flex flex-col h-full">
+                                <h2>
+                                    {searchData &&
+                                        (searchData as movieDataDetails).Plot}
+                                </h2>
+                                <div className="buttons-group flex mt-1 justify-around w-full h-8  text-white font-bold">
+                                    <button className="border w-28 bg-red-400 rounded-md">
+                                        Learn More
+                                    </button>
+                                    <button className="border w-32 bg-red-400 rounded-md">
+                                        Add to Watchlist
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>
