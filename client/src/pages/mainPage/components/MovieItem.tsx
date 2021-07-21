@@ -25,6 +25,13 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
             item = itemRef.current;
             item.addEventListener("mouseenter", (e) => {
                 clearTimeout(timeoutId);
+
+                if (itemRef.current) {
+                    const rect = itemRef.current?.getBoundingClientRect();
+                    topRef.current = rect.top;
+                    leftRef.current = rect.left;
+                }
+
                 setShowModal(true);
             });
 
@@ -34,10 +41,10 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
                 }, 100);
             });
         }
+
         let mainMovieContainter = document.querySelector(
             "#root > div > div > main > div > div.grid"
         );
-
         relativeMiddle.current =
             mainMovieContainter!.getBoundingClientRect().left +
             mainMovieContainter!.getBoundingClientRect().width / 2;
@@ -48,14 +55,6 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
             clearTimeout(timeoutId);
         };
     }, [itemRef]);
-
-    useEffect(() => {
-        if (itemRef.current) {
-            const rect = itemRef.current?.getBoundingClientRect();
-            topRef.current = rect.top;
-            leftRef.current = rect.left;
-        }
-    }, []);
 
     return (
         <React.Fragment>
