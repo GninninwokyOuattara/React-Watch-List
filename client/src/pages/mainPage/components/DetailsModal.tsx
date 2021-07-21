@@ -66,13 +66,15 @@ const DetailsModal: React.FC<props> = (props) => {
         };
     }, [props.show]);
 
+    console.log(props.top, divRef.current?.getBoundingClientRect().top);
+
     return (
         <React.Fragment>
             {(props.show || isHovered) && (
                 <div
                     className="w-72 h-48 bg-blue-300 fixed z-40"
                     style={{
-                        top: props.top,
+                        top: props.top >= 0 ? props.top : 0,
                         left:
                             props.relativeMiddle - props.left < 0
                                 ? props.left - 305
