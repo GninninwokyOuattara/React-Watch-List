@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import DetailsModal from "./DetailsModal";
+import AuthProvider from "../../../shared/context/authContext";
+import LoginProvider from "../../../shared/context/LoginContext";
 
 export interface props {
     movieData: {
@@ -58,13 +60,18 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
 
     return (
         <React.Fragment>
-            <DetailsModal
-                show={showModal}
-                imdbID={movieData.imdbID}
-                top={topRef.current}
-                left={leftRef.current}
-                relativeMiddle={relativeMiddle.current}
-            />
+            <AuthProvider>
+                <LoginProvider>
+                    <DetailsModal
+                        show={showModal}
+                        imdbID={movieData.imdbID}
+                        top={topRef.current}
+                        left={leftRef.current}
+                        relativeMiddle={relativeMiddle.current}
+                    />
+                </LoginProvider>
+            </AuthProvider>
+
             <div className="bg-red-100 h-48 w-36 flex" ref={itemRef}>
                 <img
                     src={movieData.Poster}
