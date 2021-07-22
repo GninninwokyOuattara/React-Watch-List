@@ -47,7 +47,7 @@ const LoginForm: React.FC<props> = (props) => {
         <BackdropBlack onCancel={props.onCancel}>
             <form
                 action=""
-                className="border h-56 w-96 flex flex-col p-4 z-30 bg-white"
+                className="border h-56 w-96 flex flex-col p-4 z-40 bg-white"
                 onSubmit={submitHandler}
                 onClick={(event) => event.stopPropagation()}
             >
