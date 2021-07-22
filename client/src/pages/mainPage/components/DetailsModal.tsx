@@ -1,7 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
+
+import LoginForm from "../../../shared/components/Login";
+
 import useOmdb, {
     movieDataDetails,
 } from "../../../shared/components/hooks/useOmdb";
+
+import { authContext, authType } from "../../../shared/context/authContext";
+import { LoginContext, LoginType } from "../../../shared/context/LoginContext";
 
 interface props {
     show: boolean;
@@ -23,6 +29,10 @@ const DetailsModal: React.FC<props> = (props) => {
 
     const { error, isLoading, searchDetails, searchData, setSearchData } =
         useOmdb();
+    const { isLoggedIn } = useContext(authContext) as authType;
+    const { showLogin, showLoginForm, hideLoginForm } = useContext(
+        LoginContext
+    ) as LoginType;
 
     let data: { [key: string]: movieDataDetails } = JSON.parse(
         localStorage.getItem("movieDetails") as string
@@ -66,13 +76,18 @@ const DetailsModal: React.FC<props> = (props) => {
         };
     }, [props.show]);
 
-    console.log(props.top, divRef.current?.getBoundingClientRect().top);
-
+    const handleAddWatchlist: React.MouseEventHandler<HTMLButtonElement> = (
+        event
+    ) => {
+        setIsHovered(false);
+        showLoginForm();
+    };
     return (
         <React.Fragment>
+            {showLogin && <LoginForm onCancel={hideLoginForm} />}
             {(props.show || isHovered) && (
                 <div
-                    className="w-72 min-h-48 bg-red-100 fixed z-40 rounded-md"
+                    className="w-72 min-h-48 bg-red-100 fixed z-20 rounded-md"
                     style={{
                         top: props.top >= 0 ? props.top : 0,
                         left:
@@ -126,7 +141,10 @@ const DetailsModal: React.FC<props> = (props) => {
                                     <button className="border w-28 bg-red-400 rounded-md">
                                         Learn More
                                     </button>
-                                    <button className="border w-32 bg-red-400 rounded-md">
+                                    <button
+                                        className="border w-32 bg-red-400 rounded-md"
+                                        onClick={handleAddWatchlist}
+                                    >
                                         Add to Watchlist
                                     </button>
                                 </div>
