@@ -80,7 +80,9 @@ const DetailsModal: React.FC<props> = (props) => {
         event
     ) => {
         setIsHovered(false);
-        showLoginForm();
+        if (!isLoggedIn) {
+            showLoginForm();
+        }
     };
     return (
         <React.Fragment>
