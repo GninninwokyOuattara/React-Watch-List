@@ -12,6 +12,7 @@ type movieData = {
 
 export interface movieDataArray {
     Search: movieData[];
+    totalResults: string;
 }
 
 interface searchErrorType {
