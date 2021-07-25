@@ -72,7 +72,7 @@ const MovieItem: React.FC<props> = ({ movieData }) => {
                 </LoginProvider>
             </AuthProvider>
 
-            <div className="bg-red-100 h-48 w-36 flex" ref={itemRef}>
+            <div className="bg-red-100 h-44 w-36 flex" ref={itemRef}>
                 <img
                     src={movieData.Poster}
                     alt={movieData.Title}
