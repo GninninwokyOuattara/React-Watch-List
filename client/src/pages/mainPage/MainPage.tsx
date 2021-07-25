@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import useOmdb from "../../shared/components/hooks/useOmdb";
+import useOmdb, { movieDataArray } from "../../shared/components/hooks/useOmdb";
 import MoviesList from "./components/MoviesList";
+import MoviesPagination from "./components/MoviesPagination";
 
 const MainPage = () => {
     const [isSearching, setIsSearching] = useState(false);
@@ -32,18 +33,21 @@ const MainPage = () => {
     }, [searchData]);
 
     useEffect(() => {
-        console.log("Looking for previous");
         getPreviousSearchResults();
-        console.log(previousResults);
     }, []);
 
     let content: any;
+    let numberPage: number = 0;
     if (searchData) {
         content = searchData;
     } else if (previousResults) {
         content = previousResults;
     } else {
         content = null;
+    }
+
+    if (content) {
+        numberPage = Math.ceil(parseInt(content.totalResults) / 6);
     }
 
     return (
@@ -63,12 +67,15 @@ const MainPage = () => {
                             <i className=" fas fa-search"></i>
                         </form>
                     </div>
-                    {/* {searchData && (
-                        <MoviesList
-                            moviesData={searchData as any}
-                        />
-                    )} */}
-                    {content && <MoviesList moviesData={content as any} />}
+
+                    {content && (
+                        <React.Fragment>
+                            <MoviesList moviesData={content as any} />
+                            <div className="paginiation-bar flex justify-center w-full h-auto mt-5">
+                                <MoviesPagination maxIndex={numberPage} />
+                            </div>
+                        </React.Fragment>
+                    )}
                 </div>
             </main>
         </React.Fragment>
